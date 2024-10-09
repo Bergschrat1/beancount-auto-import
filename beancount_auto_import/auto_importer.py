@@ -60,7 +60,7 @@ class ImportRule:
 class AutoImporter:
     """MixIn that allows to automatically assign payee, narration and postings to transactions."""
 
-    def _load_import_rules(self, filepath: Path) -> list[ImportRule]:
+    def load_import_rules(self, filepath: Path) -> list[ImportRule]:
         with open(filepath, "r") as f:
             yaml_content = f.read()
             data = yaml.safe_load(yaml_content)
@@ -83,7 +83,7 @@ class AutoImporter:
 
         return rules
 
-    def _auto_fill_transaction(self, transaction: Transaction, rules: list[ImportRule]) -> Transaction:
+    def auto_fill_transaction(self, transaction: Transaction, rules: list[ImportRule]) -> Transaction:
         fixed_transaction = transaction
         for r in rules:
             if r._identify_rule(transaction):
